@@ -1,0 +1,11 @@
+{
+  "name": "watsuki-blog",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node src/build.js",
+    "dev": "node src/build.js --watch",
+    "serve": "node src/build.js --serve"
+  }
+}
