@@ -172,7 +172,6 @@ function layout({ title, description, body }) {
   <footer class="footer">
     <div class="footer-inner">
       <span>© ${new Date().getFullYear()} ${escapeHtml(site.author)}</span>
-      <span>Markdownで書く、静的HTMLの情シスブログ</span>
     </div>
   </footer>
 </body>
@@ -182,9 +181,11 @@ function layout({ title, description, body }) {
 function homePage(posts) {
   const cards = posts.map((post) => `<a class="post-card" href="${post.href}">
   <time class="post-date" datetime="${escapeHtml(post.date)}">${formatDate(post.date)}</time>
-  <h3>${escapeHtml(post.title)}</h3>
-  <p>${escapeHtml(post.excerpt)}</p>
-  ${tagList(post.tags)}
+  <div>
+    <h3>${escapeHtml(post.title)}</h3>
+    <p>${escapeHtml(post.excerpt)}</p>
+    ${tagList(post.tags)}
+  </div>
 </a>`).join("\n");
 
   return layout({
@@ -192,19 +193,18 @@ function homePage(posts) {
     description: site.description,
     body: `<section class="hero">
   <div class="hero-inner">
-    <p class="eyebrow">Information Systems / Security / Operations</p>
     <h1>平田和月の情シスノート</h1>
     <p>現場で続くセキュリティ、説明しやすい運用、会社に馴染むIT改善を、実務目線で整理していきます。</p>
-    <div class="hero-actions">
-      <a class="button primary" href="#posts">記事を読む</a>
-      <a class="button" href="#profile">プロフィール</a>
-    </div>
   </div>
 </section>
 <main class="main">
+  <section class="posts" id="posts">
+    <h2 class="section-title">記事</h2>
+    <div class="post-grid">${cards}</div>
+  </section>
   <section class="intro" id="profile">
     <div>
-      <h2>小さく始めて、ちゃんと続く情シス運用へ。</h2>
+      <h2>プロフィール</h2>
       <p>アカウント管理、SaaS選定、端末運用、問い合わせ対応、セキュリティ啓発。日々の業務で見つけた考え方やチェックリストを、明日から使える粒度で書きます。</p>
       <div class="topics">
         <span class="tag">セキュリティ</span>
@@ -217,10 +217,6 @@ function homePage(posts) {
       <h3>${escapeHtml(site.author)}（${escapeHtml(site.kana)}）</h3>
       <p>情シス領域の実務から、低コストで堅実に回るIT運用を発信。難しいことを、現場に届く言葉に直すのがテーマです。</p>
     </aside>
-  </section>
-  <section class="posts" id="posts">
-    <h2 class="section-title">最新記事</h2>
-    <div class="post-grid">${cards}</div>
   </section>
 </main>`
   });
